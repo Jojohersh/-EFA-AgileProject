@@ -13,8 +13,8 @@ namespace Agile.Data
         {
             
         }
-        public DbSet<Box> Boxes {get; set;}
-        public DbSet<User> Users { get; set; }
-        public DbSet<Mail> Mail {get; set;}
+        public DbSet<BoxEntity> Boxes {get; set;}
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<MailEntity> Mail {get; set;}
     }
 }
