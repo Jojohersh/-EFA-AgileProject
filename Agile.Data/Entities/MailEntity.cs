@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Agile.Data.Entities
 {
-    public class Mail
+    public class MailEntity
     {
         
     }
