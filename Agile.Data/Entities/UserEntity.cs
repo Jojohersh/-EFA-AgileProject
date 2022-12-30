@@ -23,3 +23,4 @@ public class UserEntity
     public int InboxId {get; set;}
     public BoxEntity inbox {get; set;}
 }
+
