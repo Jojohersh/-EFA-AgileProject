@@ -13,7 +13,7 @@ namespace Agile.Data.Entities
         [Key]
         public int Id {get; set;} 
         [Required]
-        public string Title {get; set;}
+        public string BoxName {get; set;}
 
         [Required]
         [ForeignKey (nameof(User))]
