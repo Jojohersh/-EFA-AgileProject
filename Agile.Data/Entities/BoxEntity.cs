@@ -19,5 +19,6 @@ namespace Agile.Data.Entities
         [ForeignKey (nameof(User))]
         public int UserId {get; set;}
         public UserEntity User {get; set;}        
+        public List<MailEntity> Mail {get; set;}
     }
 }

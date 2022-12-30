@@ -9,8 +9,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Agile.Data.Entities
 {
 
-  public class UserEntity
-  {
+    public class UserEntity
+    {
     [Key]
     public int Id {get; set;}
 
