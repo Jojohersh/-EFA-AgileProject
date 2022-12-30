@@ -18,7 +18,6 @@ namespace Agile.Data.Entities
         [Required]
         [ForeignKey (nameof(User))]
         public int UserId {get; set;}
-        public UserEntity User {get; set;}
-        
+        public UserEntity User {get; set;}        
     }
 }

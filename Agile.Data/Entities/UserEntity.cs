@@ -6,8 +6,11 @@ using System.ComponentModel.DataAnnotations;
 using Agile.Data.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class UserEntity
+namespace Agile.Data.Entities
 {
+
+  public class UserEntity
+  {
     [Key]
     public int Id {get; set;}
 
@@ -22,5 +25,5 @@ public class UserEntity
     [ForeignKey(nameof(inbox))]
     public int InboxId {get; set;}
     public BoxEntity inbox {get; set;}
+  }
 }
-
