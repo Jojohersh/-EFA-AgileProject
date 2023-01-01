@@ -44,19 +44,46 @@ namespace Agile.Services.Mail
             return numberOfChanges == 1;
         }
 
-        public Task<bool> DeleteMailAsync(int mailId)
+        public async Task<bool> DeleteMailAsync(int mailId)
         {
-            throw new NotImplementedException();
+            var mailEntity = await DbContext.Mail.FindAsync(mailId);
+
+            if (mailEntity?.BoxId != _userId)
+            return false;
+
+            DbContext.Mail.Remove(mailEntity);
+            return await DbContext.SaveChangesAsync() == 1;
         }
 
-        public Task<MailDetail> GetMailByIdAsync(int mailId)
+        public async Task<MailDetail> GetMailByIdAsync(int mailId)
         {
-            throw new NotImplementedException();
+            var mailEntity = await DbContext.Mail.FirstOrDefaultAsync(e =>
+            e.Id == mailId && e.BoxId == _userId);
+
+            return (mailEntity is null) ? null : new MailDetail
+            {
+                BoxId  = mailEntity.BoxId,
+                Subject = mailEntity.Subject,
+                Body = mailEntity.Body,
+                SenderId = mailEntity.SenderId,
+                ReceiverId = mailEntity.ReceiverId
+            };
         }
 
-        public Task<bool> UpdateMailAsync(MailUpdate request)
+        public async Task<bool> UpdateMailAsync(MailUpdate request)
         {
-            throw new NotImplementedException();
+            var mailEntity = await DbContext.Mail.FindAsync(request.BoxId);
+
+            if (mailEntity?.BoxId != _userId)
+            return false;
+
+            mailEntity.Subject = request.Subject;
+            mailEntity.Body = request.Body;
+            mailEntity.SenderId = request.SenderId;
+            mailEntity.ReceiverId = request.ReceiverId;
+            
+            var numberOfChanges = await DbContext.SaveChangesAsync();
+            return numberOfChanges == 1;       
         }
     }
 }
