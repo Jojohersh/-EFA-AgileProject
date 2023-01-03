@@ -35,7 +35,11 @@ ElevenFifty - Agile Project - User Stories and Acceptance Criteria
 		Returns true if a valid user is deleted.
 		Returns false if userId provided is invalid.
       		Returns false if the user is not removed from the DB (such as a db error).
+Stretch Goals:
 
+   - Adding a JavaScript WebToken User Authentication
+   - Adding Multiple User Inboxes / Folders for Email Sorting
+   - Adding Labeling Functionality
 
 Trello Workflow Board
 https://trello.com/b/p24I5yE8/trello-agile-sprint-board-template
