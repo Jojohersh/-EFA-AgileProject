@@ -23,13 +23,18 @@ namespace Agile.Services.User
             returns false if either are missing or if email is not a valid email format
             returns false if the provided model is invalid
         */
-        public async Task<bool> CreateUserAsync(UserRegister model) {
-            if (model?.EmailAddress is null || model.UserName is null)
+        public async Task<bool> CreateUserAsync(UserRegister request) {
+            if (request?.EmailAddress is null || request.UserName is null)
+                return false;
+            
+            var user = await GetUserByEmailAsync(request.EmailAddress);
+
+            if (user is not null)
                 return false;
             
             var newUser = new UserEntity {
-                UserName = model.UserName,
-                EmailAddress = model.EmailAddress,
+                UserName = request.UserName,
+                EmailAddress = request.EmailAddress,
                 // should I call the other service in here?
                 // InboxId = CreateBoxAsync()
             };
@@ -62,7 +67,7 @@ namespace Agile.Services.User
             returns null if email is not used by a user
         */
         public async Task<UserDetail> GetUserByEmailAsync(string emailAddress) {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailAddress == emailAddress);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailAddress.ToLower() == emailAddress.ToLower());
 
             return (user is null)
                 ? null
