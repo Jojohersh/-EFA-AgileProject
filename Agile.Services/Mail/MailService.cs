@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Agile.Data;
 using Agile.Data.Entities;
 using Agile.Models.Mail;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agile.Services.Mail
 {
@@ -15,14 +16,8 @@ namespace Agile.Services.Mail
         private int _userId;
         private ApplicationDbContext DbContext;
 
-        public MailService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
+        public MailService(ApplicationDbContext context)
         {
-            var userClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var value = userClaims.FindFirst("Id")?.Value;
-            var validId = int.TryParse(value, out _userId);
-            if (!validId)
-                throw new Exception("Attempted to build Mail Service without User Id claim.");
-
             DbContext = context;
         }
 
@@ -38,7 +33,7 @@ namespace Agile.Services.Mail
             BoxId = request.BoxId,
             };
 
-            DbContext.Reply.Add(mailEntity);
+            DbContext.Add(mailEntity);
 
             var numberOfChanges = await DbContext.SaveChangesAsync();
             return numberOfChanges == 1;
