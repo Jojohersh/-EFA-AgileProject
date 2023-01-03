@@ -57,6 +57,12 @@ namespace Agile.Services.User
                 };
         }
         // Update
+        /*
+            returns true if a valid user has been found and a valid new name has been provided
+            returns false if userId is not a valid user
+            returns false if the request is missing a new name of length 2 or more or is missing a userId
+            returns false if no changes are made
+        */
         public async Task<bool> UpdateUserAsync(int userId, UserUpdate request) {
             var oldUser = await _dbContext.Users.FindAsync(userId);
             if (oldUser is null)
@@ -67,6 +73,11 @@ namespace Agile.Services.User
             
             return (numberOfChanges == 1);
         }
+        /*
+            returns true if a valid user is deleted
+            returns false if userId provided is invalid
+            returns false if the user is not removed from the DB (such as a db error)
+        */
         // Delete
         public async Task<bool> DeleteUserAsync(int userId) {
             var user = await _dbContext.Users.FindAsync(userId);
@@ -76,7 +87,7 @@ namespace Agile.Services.User
             
             _dbContext.Users.Remove(user);
             var numberOfChanges = await _dbContext.SaveChangesAsync();
-            
+
             return (numberOfChanges == 1);
         }
     }
