@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Agile.Data;
 using Agile.Data.Entities;
 using Agile.Models.User;
+using Agile.Services.Box;
 using Microsoft.EntityFrameworkCore;
 
 namespace Agile.Services.User
@@ -12,8 +13,10 @@ namespace Agile.Services.User
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _dbContext;
-        public UserService(ApplicationDbContext dbContext)
+        private readonly BoxService _boxService;
+        public UserService(ApplicationDbContext dbContext, BoxService boxService)
         {
+            _boxService = boxService;
             _dbContext = dbContext;
         }
 
@@ -42,6 +45,12 @@ namespace Agile.Services.User
             _dbContext.Users.Add(newUser);
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
+            
+            //fetch user and get their Id
+            //create a new BoxEntity using the user's Id
+            //add to db
+            //save changes
+            
             return (numberOfChanges == 1);
         }
         // Read
