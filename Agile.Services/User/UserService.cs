@@ -38,21 +38,57 @@ namespace Agile.Services.User
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return (numberOfChanges == 1);
         }
-        // // Read
-        // /*
-        //     Returns a populated UserEntity from the database if the provided userId is valid
-        //     Returns a null object if the given userId is not a valid user
-        // */
-        // public async Task<UserEntity> GetUserAsync(int userId) {
-
-        // }
-        // // Update
-        // Task<bool> UpdateUserAsync(int userId/*, make an update model*/) {
-
-        // }
-        // // Delete
-        // Task<bool> DeleteUserAsync(int userId) {
+        // Read
+        /*
+            Returns a populated UserDetail model if the provided userId is valid
+            Returns a null object if the given userId is not a valid user
+        */
+        public async Task<UserDetail> GetUserByIdAsync(int userId) {
+            var user = await _dbContext.Users.FindAsync(userId);
             
-        // }
+            return (user is null) 
+                ? null
+                : new UserDetail {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    EmailAddress = user.EmailAddress,
+                    BoxId = user.InboxId,
+                    TotalMail = user.inbox.Mail.Count
+                };
+        }
+        // Update
+        /*
+            returns true if a valid user has been found and a valid new name has been provided
+            returns false if userId is not a valid user
+            returns false if the request is missing a new name of length 2 or more or is missing a userId
+            returns false if no changes are made
+        */
+        public async Task<bool> UpdateUserAsync(int userId, UserUpdate request) {
+            var oldUser = await _dbContext.Users.FindAsync(userId);
+            if (oldUser is null)
+                return false;
+            
+            oldUser.UserName = request.UserName;
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+            
+            return (numberOfChanges == 1);
+        }
+        /*
+            returns true if a valid user is deleted
+            returns false if userId provided is invalid
+            returns false if the user is not removed from the DB (such as a db error)
+        */
+        // Delete
+        public async Task<bool> DeleteUserAsync(int userId) {
+            var user = await _dbContext.Users.FindAsync(userId);
+
+            if (user is null)
+                return false;
+            
+            _dbContext.Users.Remove(user);
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+
+            return (numberOfChanges == 1);
+        }
     }
 }
