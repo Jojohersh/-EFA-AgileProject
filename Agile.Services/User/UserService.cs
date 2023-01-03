@@ -67,9 +67,17 @@ namespace Agile.Services.User
             
             return (numberOfChanges == 1);
         }
-        // // Delete
-        // public async Task<bool> DeleteUserAsync(int userId) {
+        // Delete
+        public async Task<bool> DeleteUserAsync(int userId) {
+            var user = await _dbContext.Users.FindAsync(userId);
+
+            if (user is null)
+                return false;
             
-        // }
+            _dbContext.Users.Remove(user);
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+            
+            return (numberOfChanges == 1);
+        }
     }
 }

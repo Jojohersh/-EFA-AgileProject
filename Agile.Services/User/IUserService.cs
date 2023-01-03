@@ -18,6 +18,6 @@ namespace Agile.Services.User
         // // Update
         Task<bool> UpdateUserAsync(int userId, UserUpdate request);
         // // Delete
-        // Task<bool> DeleteUserAsync(int userId);
+        Task<bool> DeleteUserAsync(int userId);
     }
 }
