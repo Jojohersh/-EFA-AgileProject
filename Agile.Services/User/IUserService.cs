@@ -16,7 +16,7 @@ namespace Agile.Services.User
         //Task<UserEntity> GetUserByEmailAsync(string Email);
         
         // // Update
-        // Task<bool> UpdateUserAsync(int userId/*, make an update model*/);
+        Task<bool> UpdateUserAsync(int userId, UserUpdate request);
         // // Delete
         // Task<bool> DeleteUserAsync(int userId);
     }

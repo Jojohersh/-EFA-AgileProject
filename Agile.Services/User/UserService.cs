@@ -56,12 +56,19 @@ namespace Agile.Services.User
                     TotalMail = user.inbox.Mail.Count
                 };
         }
-        // // Update
-        // Task<bool> UpdateUserAsync(int userId/*, make an update model*/) {
-
-        // }
+        // Update
+        public async Task<bool> UpdateUserAsync(int userId, UserUpdate request) {
+            var oldUser = await _dbContext.Users.FindAsync(userId);
+            if (oldUser is null)
+                return false;
+            
+            oldUser.UserName = request.UserName;
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+            
+            return (numberOfChanges == 1);
+        }
         // // Delete
-        // Task<bool> DeleteUserAsync(int userId) {
+        // public async Task<bool> DeleteUserAsync(int userId) {
             
         // }
     }
