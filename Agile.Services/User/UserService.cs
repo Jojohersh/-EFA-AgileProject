@@ -23,7 +23,7 @@ namespace Agile.Services.User
             returns false if either are missing or if email is not a valid email format
             returns false if the provided model is invalid
         */
-        public async Task<bool> CreateUserAsync(UserRegister request) {
+        public async Task<bool> RegisterUserAsync(UserRegister request) {
             if (request?.EmailAddress is null || request.UserName is null)
                 return false;
             

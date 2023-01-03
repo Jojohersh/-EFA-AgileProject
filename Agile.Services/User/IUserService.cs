@@ -10,10 +10,9 @@ namespace Agile.Services.User
     public interface IUserService
     {
         // Create
-        Task<bool> CreateUserAsync(UserRegister model);
+        Task<bool> RegisterUserAsync(UserRegister model); //* changed to match naming conventions
         // Read
         Task<UserDetail> GetUserByIdAsync(int userId);
-        //Task<UserEntity> GetUserByEmailAsync(string Email);
         
         // // Update
         Task<bool> UpdateUserAsync(int userId, UserUpdate request);
