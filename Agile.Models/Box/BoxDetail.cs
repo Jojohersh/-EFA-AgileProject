@@ -9,6 +9,6 @@ namespace Agile.Models.Box
     {
         public int Id {get; set;}
         public string BoxName {get; set;}
-        public int UserId {get; set;}
+        public int? UserId {get; set;}
     }
 }
