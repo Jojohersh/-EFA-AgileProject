@@ -9,9 +9,9 @@ ElevenFifty - Agile Project - User Stories and Acceptance Criteria
 
 1.     “As a User, I need to be able to register a new account with a unique email address and password.”
 
-	Returns true if a valid email address and user's name are provided
-	Returns false if either are missing or if email is not a valid email format
-	Returns false if the provided model is invalid
+	Returns true if a valid email address and user's name are provided.
+	Returns false if either are missing or if email is not a valid email format.
+	Returns false if the provided model is invalid.
 	
 2.     “As a User, I need to be able to access a Box containing a list of emails associated with my email address.”
 
@@ -22,19 +22,19 @@ ElevenFifty - Agile Project - User Stories and Acceptance Criteria
 
 	Returns true if email is added to DB and contains a matching foreign key ID with User’s Box.
 	Returns false if email does not contain matching I.D.
-	Returns false if email is not added to DB (such as db error)
+	Returns false if email is not added to DB (such as db error).
 
 4.     “As a User, I need to be able to Delete emails associated with my email address.”
 
-	returns true if a email is deleted
-	returns false if emailId provided is invalid
-	returns false if the email is not removed from the DB (such as a db error)
+	returns true if a email is deleted.
+	returns false if emailId provided is invalid.
+	returns false if the email is not removed from the DB (such as a db error).
 
 5.     “As a User, I need to be able to Delete my email account.”
 
-	returns true if a valid user is deleted
-	returns false if userId provided is invalid
-      	returns false if the user is not removed from the DB (such as a db error)
+	returns true if a valid user is deleted.
+	returns false if userId provided is invalid.
+      	returns false if the user is not removed from the DB (such as a db error).
 
 
 Trello Workflow Board
