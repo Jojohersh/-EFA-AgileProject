@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Agile.Data;
 using Agile.Data.Entities;
 using Agile.Models.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agile.Services.User
 {
@@ -54,6 +55,20 @@ namespace Agile.Services.User
                     EmailAddress = user.EmailAddress,
                     BoxId = user.InboxId,
                     TotalMail = user.inbox.Mail.Count
+                };
+        }
+
+        public async Task<UserDetail> GetUserByEmailAsync(string emailAddress) {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailAddress == emailAddress);
+
+            return (user is null)
+                ? null
+                : new UserDetail {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    EmailAddress = user.EmailAddress,
+                    TotalMail = user.inbox.Mail.Count,
+                    BoxId = user.InboxId
                 };
         }
         // Update
