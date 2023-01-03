@@ -13,10 +13,9 @@ namespace Agile.Services.User
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly BoxService _boxService;
-        public UserService(ApplicationDbContext dbContext, BoxService boxService)
+        
+        public UserService(ApplicationDbContext dbContext)
         {
-            _boxService = boxService;
             _dbContext = dbContext;
         }
 
@@ -38,8 +37,8 @@ namespace Agile.Services.User
             var newUser = new UserEntity {
                 UserName = request.UserName,
                 EmailAddress = request.EmailAddress,
-                // should I call the other service in here?
-                // InboxId = CreateBoxAsync()
+                // should I call the other service in h ere?
+                InboxId = 0
             };
 
             _dbContext.Users.Add(newUser);
@@ -50,7 +49,7 @@ namespace Agile.Services.User
             //create a new BoxEntity using the user's Id
             //add to db
             //save changes
-            
+
             return (numberOfChanges == 1);
         }
         // Read
