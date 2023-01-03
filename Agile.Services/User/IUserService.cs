@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Agile.Data.Entities;
 using Agile.Models.User;
 
 namespace Agile.Services.User
@@ -10,8 +11,10 @@ namespace Agile.Services.User
     {
         // Create
         Task<bool> CreateUserAsync(UserRegister model);
-        // // Read
-        // Task<UserEntity> GetUserAsync(int userId);
+        // Read
+        Task<UserDetail> GetUserByIdAsync(int userId);
+        //Task<UserEntity> GetUserByEmailAsync(string Email);
+        
         // // Update
         // Task<bool> UpdateUserAsync(int userId/*, make an update model*/);
         // // Delete
