@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Agile.Data;
+using Agile.Data.Entities;
 using Agile.Models.User;
 
 namespace Agile.Services.User
