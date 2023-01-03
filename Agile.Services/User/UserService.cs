@@ -57,7 +57,10 @@ namespace Agile.Services.User
                     TotalMail = user.inbox.Mail.Count
                 };
         }
-
+        /*
+            returns a UserDetail of the user using the provided email address
+            returns null if email is not used by a user
+        */
         public async Task<UserDetail> GetUserByEmailAsync(string emailAddress) {
             var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailAddress == emailAddress);
 
