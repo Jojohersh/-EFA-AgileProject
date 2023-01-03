@@ -1,4 +1,7 @@
 using Agile.Data;
+using Agile.Services.Box;
+using Agile.Services.Mail;
+using Agile.Services.User;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
  var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IBoxService, BoxService>();
+builder.Services.AddScoped<IMailService,MailService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
