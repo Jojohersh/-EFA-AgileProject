@@ -33,25 +33,25 @@ namespace Agile.Services.User
             };
 
             _dbContext.Users.Add(newUser);
-            
+
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return (numberOfChanges == 1);
         }
-        // Read
-        /*
-            Returns a populated UserEntity from the database if the provided userId is valid
-            Returns a null object if the given userId is not a valid user
-        */
-        public async Task<UserEntity> GetUserAsync(int userId) {
+        // // Read
+        // /*
+        //     Returns a populated UserEntity from the database if the provided userId is valid
+        //     Returns a null object if the given userId is not a valid user
+        // */
+        // public async Task<UserEntity> GetUserAsync(int userId) {
 
-        }
-        // Update
-        Task<bool> UpdateUserAsync(int userId/*, make an update model*/) {
+        // }
+        // // Update
+        // Task<bool> UpdateUserAsync(int userId/*, make an update model*/) {
 
-        }
-        // Delete
-        Task<bool> DeleteUserAsync(int userId) {
+        // }
+        // // Delete
+        // Task<bool> DeleteUserAsync(int userId) {
             
-        }
+        // }
     }
 }
