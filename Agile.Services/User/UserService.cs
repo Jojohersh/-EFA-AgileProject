@@ -40,13 +40,14 @@ namespace Agile.Services.User
         }
         // Read
         /*
-            Returns a populated UserEntity from the database if the provided userId is valid
+            Returns a populated UserDetail model if the provided userId is valid
             Returns a null object if the given userId is not a valid user
         */
         public async Task<UserDetail> GetUserByIdAsync(int userId) {
             var user = await _dbContext.Users.FindAsync(userId);
             
-            return (user is null) ? null
+            return (user is null) 
+                ? null
                 : new UserDetail {
                     Id = user.Id,
                     UserName = user.UserName,
