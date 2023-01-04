@@ -21,9 +21,10 @@ namespace Agile.Data.Entities
     [EmailAddress]
     public string EmailAddress {get; set;}
 
-    [Required]
-    [ForeignKey(nameof(inbox))]
-    public int InboxId {get; set;}
-    public BoxEntity inbox {get; set;}
+    // [Required]
+    // [ForeignKey(nameof(inbox))]
+    // public int InboxId {get; set;}
+    // public BoxEntity inbox {get; set;}
+    public virtual List<BoxEntity> MailBoxes{ get; set; }
   }
 }

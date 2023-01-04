@@ -13,11 +13,16 @@ namespace Agile.Services.User
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _dbContext;
-        
-        public UserService(ApplicationDbContext dbContext)
+        private readonly IBoxService _boxService;
+
+        public UserService(ApplicationDbContext dbContext, IBoxService boxService)
         {
             _dbContext = dbContext;
+            _boxService = boxService;
         }
+
+
+
 
         // Create
         /*
@@ -38,7 +43,7 @@ namespace Agile.Services.User
                 UserName = request.UserName,
                 EmailAddress = request.EmailAddress,
                 // should I call the other service in h ere?
-                InboxId = 0
+               // InboxId = 0
             };
 
             _dbContext.Users.Add(newUser);
@@ -47,6 +52,8 @@ namespace Agile.Services.User
             
             //fetch user and get their Id
             //create a new BoxEntity using the user's Id
+            
+          
             //add to db
             //save changes
 
@@ -58,24 +65,7 @@ namespace Agile.Services.User
             Returns a null object if the given userId is not a valid user
         */
         public async Task<UserDetail> GetUserByIdAsync(int userId) {
-            var user = await _dbContext.Users.FindAsync(userId);
-            
-            return (user is null) 
-                ? null
-                : new UserDetail {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    EmailAddress = user.EmailAddress,
-                    BoxId = user.InboxId,
-                    TotalMail = user.inbox.Mail.Count
-                };
-        }
-        /*
-            returns a UserDetail of the user using the provided email address
-            returns null if email is not used by a user
-        */
-        public async Task<UserDetail> GetUserByEmailAsync(string emailAddress) {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailAddress.ToLower() == emailAddress.ToLower());
+                  var user = await _dbContext.Users.Include(u=>u.MailBoxes).FirstOrDefaultAsync(user => user.Id==userId);
 
             return (user is null)
                 ? null
@@ -83,8 +73,34 @@ namespace Agile.Services.User
                     Id = user.Id,
                     UserName = user.UserName,
                     EmailAddress = user.EmailAddress,
-                    TotalMail = user.inbox.Mail.Count,
-                    BoxId = user.InboxId
+                  //  TotalMail = user.inbox.Mail.Count,
+                   // BoxId = user.InboxId,
+                    MailBoxes=user.MailBoxes.Select(m=>new BoxEntityListItem{
+                            Id = m.Id,
+                            BoxName=m.BoxName
+                    }).ToList()
+                };
+        }
+        /*
+            returns a UserDetail of the user using the provided email address
+            returns null if email is not used by a user
+        */
+        public async Task<UserDetail> GetUserByEmailAsync(string emailAddress) {
+            
+            var user = await _dbContext.Users.Include(u=>u.MailBoxes).FirstOrDefaultAsync(user => user.EmailAddress.ToLower() == emailAddress.ToLower());
+
+            return (user is null)
+                ? null
+                : new UserDetail {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    EmailAddress = user.EmailAddress,
+                  //  TotalMail = user.inbox.Mail.Count,
+                   // BoxId = user.InboxId,
+                    MailBoxes=user.MailBoxes.Select(m=>new BoxEntityListItem{
+                            Id = m.Id,
+                            BoxName=m.BoxName
+                    }).ToList()
                 };
         }
         // Update

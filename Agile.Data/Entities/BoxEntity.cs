@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Agile.Data.Entities;
 
-namespace Agile.Data.Entities
-{
+
     public class BoxEntity
     {
         [Key]
@@ -19,6 +18,5 @@ namespace Agile.Data.Entities
         [ForeignKey (nameof(User))]
         public int? UserId {get; set;}
         public UserEntity User {get; set;}        
-        public List<MailEntity> Mail {get; set;}
+        
     }
-}

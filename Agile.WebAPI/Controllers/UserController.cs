@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace Agile.WebAPI.Controllers
         [HttpGet("{userId:int}")]    
         public async Task<IActionResult> GetById([FromRoute] int userId)
             {
+               //int userDbId = int.Parse(User.Claims.FirstOrDefault(c=>c.Type==ClaimTypes.NameIdentifier).Value);
                 var userDetail = await _userService.GetUserByIdAsync(userId);
                 if(userDetail is null)
                 {
